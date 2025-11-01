@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destination Details - Travel Aura</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      background: #f4f6f8;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .details-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .details-header .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-btn {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 2px solid white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background: white;
+      color: #667eea;
+    }
+
+    .main-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .hero-section {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 450px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      padding: 30px;
+      color: white;
+    }
+
+    .hero-overlay h1 {
+      margin: 0 0 10px 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .hero-overlay .destination-meta {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .destination-type-badge {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+
+    .rating-badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .info-card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .info-card h2 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+    }
+
+    .info-card h2 i {
+      color: #667eea;
+    }
+
+    .info-section {
+      margin-bottom: 30px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .info-section:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .info-section h3 {
+      color: #333;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-section h3 i {
+      color: #667eea;
+      font-size: 1rem;
+    }
+
+    .info-section p {
+      color: #666;
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    .info-section ul {
+      color: #666;
+      line-height: 2;
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .info-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .activities-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .activity-tag {
+      background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+      color: #1976d2;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .sidebar-actions {
+      position: sticky;
+      top: 20px;
+    }
+
+    .action-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .action-card h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 1.2rem;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-secondary:hover {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-secondary.favorited {
+      background: #ffebee;
+      color: #c62828;
+      border-color: #c62828;
+    }
+
+    .quick-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .quick-info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .quick-info-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .quick-info-text {
+      flex: 1;
+    }
+
+    .quick-info-text strong {
+      display: block;
+      color: #333;
+      font-size: 0.9rem;
+      margin-bottom: 3px;
+    }
+
+    .quick-info-text span {
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 968px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar-actions {
+        position: static;
+      }
+
+      .hero-image {
+        height: 300px;
+      }
+
+      .hero-overlay h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-image {
+        height: 250px;
+      }
+
+      .hero-overlay {
+        padding: 20px;
+      }
+
+      .hero-overlay h1 {
+        font-size: 1.5rem;
+      }
+
+      .info-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="details-header">
+    <div class="container">
+      <h2 style="margin: 0; font-size: 1.5rem;">
+        <i class="fas fa-map-marked-alt"></i> Destination Details
+      </h2>
+      <a href="dashboard.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="hero-image" id="heroImage">
+        <div class="hero-overlay">
+          <h1 id="destinationName">Loading...</h1>
+          <div class="destination-meta">
+            <span class="destination-type-badge" id="destinationType">-</span>
+            <span class="rating-badge">
+              <i class="fas fa-star"></i>
+              <span id="destinationRating">0</span>
+              (<span id="destinationReviews">0</span> reviews)
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+      <!-- Main Info -->
+      <div>
+        <div class="info-card">
+          <h2><i class="fas fa-info-circle"></i> About This Destination</h2>
+          
+          <div class="info-section">
+            <h3><i class="fas fa-align-left"></i> Description</h3>
+            <p id="destinationDescription">Loading destination information...</p>
+          </div>
+
+          <div class="info-section">
+            <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+            <p id="destinationLocation">-</p>
+          </div>
+
+          <div class="info-section" id="highlightsSection" style="display: none;">
+            <h3><i class="fas fa-star"></i> Highlights</h3>
+            <ul id="destinationHighlights"></ul>
+          </div>
+
+          <div class="info-section">
+            <h3><i class="fas fa-calendar-alt"></i> Best Time to Visit</h3>
+            <p id="destinationBestTime">-</p>
+          </div>
+
+          <div class="info-section" id="activitiesSection" style="display: none;">
+            <h3><i class="fas fa-hiking"></i> Popular Activities</h3>
+            <div class="activities-grid" id="destinationActivities"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar-actions">
+        <!-- Quick Actions -->
+        <div class="action-card">
+          <h3>Quick Actions</h3>
+          <button class="btn-primary" onclick="bookThisDestination()">
+            <i class="fas fa-calendar-plus"></i> Book This Trip
+          </button>
+          <button class="btn-secondary" id="favoriteBtn" onclick="toggleFavorite()">
+            <i class="fas fa-heart"></i> <span id="favoriteBtnText">Add to Favorites</span>
+          </button>
+        </div>
+
+        <!-- Quick Info -->
+        <div class="action-card">
+          <h3>Quick Info</h3>
+          <div class="quick-info">
+            <div class="quick-info-item">
+              <div class="quick-info-icon">
+                <i class="fas fa-map-marked-alt"></i>
+              </div>
+              <div class="quick-info-text">
+                <strong>Type</strong>
+                <span id="quickType">-</span>
+              </div>
+            </div>
+
+            <div class="quick-info-item">
+              <div class="quick-info-icon">
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="quick-info-text">
+                <strong>Rating</strong>
+                <span id="quickRating">-</span>
+              </div>
+            </div>
+
+            <div class="quick-info-item">
+              <div class="quick-info-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="quick-info-text">
+                <strong>Reviews</strong>
+                <span id="quickReviews">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentDestination = null;
+    let currentUser = null;
+    let isFavorite = false;
+
+    // Load destination details on page load
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Get current user
+      const userData = localStorage.getItem('currentUser');
+      if (!userData) {
+        alert('Please login first');
+        window.location.href = 'travel.html';
+        return;
+      }
+      currentUser = JSON.parse(userData);
+
+      // Get destination ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const destinationId = urlParams.get('id');
+
+      if (!destinationId) {
+        alert('No destination specified');
+        window.location.href = 'dashboard.html';
+        return;
+      }
+
+      await loadDestinationDetails(destinationId);
+      await checkIfFavorite(destinationId);
+    });
+
+    // Load destination details
+    async function loadDestinationDetails(destinationId) {
+      try {
+        const response = await fetch('/destinations');
+        const destinations = await response.json();
+        
+        currentDestination = destinations.find(d => d._id === destinationId);
+
+        if (!currentDestination) {
+          alert('Destination not found');
+          window.location.href = 'dashboard.html';
+          return;
+        }
+
+        // Populate page
+        document.getElementById('destinationName').textContent = currentDestination.name;
+        document.getElementById('destinationType').textContent = (currentDestination.type || 'Destination').replace('-', ' ');
+        document.getElementById('destinationRating').textContent = currentDestination.rating || '0';
+        document.getElementById('destinationReviews').textContent = currentDestination.reviews || 0;
+        
+        // Hero image
+        const heroImage = document.getElementById('heroImage');
+        heroImage.style.backgroundImage = `url('${currentDestination.imageUrl || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80'}')`;
+
+        // Description
+        document.getElementById('destinationDescription').textContent = 
+          currentDestination.description || `Discover the beauty and culture of ${currentDestination.name}. A perfect destination for travelers seeking memorable experiences in Tamil Nadu.`;
+
+        // Location
+        document.getElementById('destinationLocation').textContent = 
+          currentDestination.location || 'Tamil Nadu, India';
+
+        // Best time
+        document.getElementById('destinationBestTime').textContent = 
+          currentDestination.bestTime || 'October to March (Winter months are ideal for pleasant weather)';
+
+        // Highlights
+        if (currentDestination.highlights) {
+          const highlightsList = document.getElementById('destinationHighlights');
+          highlightsList.innerHTML = '';
+          currentDestination.highlights.split(',').forEach(highlight => {
+            const li = document.createElement('li');
+            li.textContent = highlight.trim();
+            highlightsList.appendChild(li);
+          });
+          document.getElementById('highlightsSection').style.display = 'block';
+        }
+
+        // Activities
+        if (currentDestination.activities) {
+          const activitiesGrid = document.getElementById('destinationActivities');
+          activitiesGrid.innerHTML = '';
+          currentDestination.activities.split(',').forEach(activity => {
+            const tag = document.createElement('div');
+            tag.className = 'activity-tag';
+            tag.textContent = activity.trim();
+            activitiesGrid.appendChild(tag);
+          });
+          document.getElementById('activitiesSection').style.display = 'block';
+        }
+
+        // Quick info sidebar
+        document.getElementById('quickType').textContent = (currentDestination.type || 'Destination').replace('-', ' ');
+        document.getElementById('quickRating').textContent = `${currentDestination.rating || '0'} / 5.0`;
+        document.getElementById('quickReviews').textContent = `${currentDestination.reviews || 0} travelers`;
+
+        console.log('✅ Destination details loaded:', currentDestination.name);
+
+      } catch (error) {
+        console.error('Error loading destination:', error);
+        alert('Error loading destination details');
+        window.location.href = 'dashboard.html';
+      }
+    }
+
+    // Check if destination is in favorites
+    async function checkIfFavorite(destinationId) {
+      try {
+        const response = await fetch(`/favorites/${currentUser._id}`);
+        const favorites = await response.json();
+        
+        isFavorite = favorites.some(fav => fav.destinationId?._id === destinationId);
+        
+        updateFavoriteButton();
+      } catch (error) {
+        console.error('Error checking favorites:', error);
+      }
+    }
+
+    // Update favorite button
+    function updateFavoriteButton() {
+      const btn = document.getElementById('favoriteBtn');
+      const text = document.getElementById('favoriteBtnText');
+      
+      if (isFavorite) {
+        btn.classList.add('favorited');
+        text.textContent = 'Already in Favorites';
+      } else {
+        btn.classList.remove('favorited');
+        text.textContent = 'Add to Favorites';
+      }
+    }
+
+    // Toggle favorite
+    async function toggleFavorite() {
+      if (isFavorite) {
+        alert('This destination is already in your favorites!');
+        return;
+      }
+
+      try {
+        const response = await fetch('/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: currentUser._id,
+            destinationId: currentDestination._id
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert('✅ Added to favorites!');
+          isFavorite = true;
+          updateFavoriteButton();
+        } else {
+          alert(data.message || 'Failed to add to favorites');
+        }
+      } catch (error) {
+        console.error('Error toggling favorite:', error);
+        alert('Error updating favorites');
+      }
+    }
+
+    // Book this destination
+    function bookThisDestination() {
+      // Store destination info for booking
+      localStorage.setItem('bookingDestination', JSON.stringify({
+        id: currentDestination._id,
+        name: currentDestination.name
+      }));
+
+      // Redirect to dashboard with booking modal
+      window.location.href = 'dashboard.html?openBooking=true';
+    }
+  </script>
+</body>
+</html>
