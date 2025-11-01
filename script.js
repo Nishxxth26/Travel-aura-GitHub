@@ -82,7 +82,7 @@ function logout() {
   
   // If on dashboard page, redirect to main page
   if (window.location.pathname.includes('dashboard.html') || window.location.pathname.includes('admin_login.html')) {
-    window.location.href = 'travel.html';
+    window.location.href = 'index.html';
   }
 }
 

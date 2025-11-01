@@ -28,7 +28,7 @@ app.use(express.static(__dirname));
 
 // ✅ Serve travel.html as the homepage
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'travel.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // ---------------------- STATIC ADMIN CREDENTIALS ----------------------

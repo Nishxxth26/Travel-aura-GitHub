@@ -1249,7 +1249,7 @@ function formatDetailDate(dateStr) {
 function logout() {
   if (confirm("Are you sure you want to log out?")) {
     localStorage.removeItem("currentUser");
-    window.location.href = "travel.html";
+    window.location.href = "index.html";
   }
 }
 
@@ -1262,11 +1262,11 @@ function setupLogoutHandler() {
 
 // --------- SHOW ADVENTURE/FOOD PAGE ------------
 function showAdventurePage() {
-  window.location.href = "travel.html#adventure";
+  window.location.href = "index.html#adventure";
 }
 
 function showFoodPage() {
-  window.location.href = "travel.html#food";
+  window.location.href = "index.html#food";
 }
 
 // ========== SUPPORT SECTION FUNCTIONS (SIMPLIFIED) ==========
